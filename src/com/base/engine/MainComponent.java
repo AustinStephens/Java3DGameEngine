@@ -12,6 +12,8 @@ public class MainComponent
 	
 	public MainComponent()
 	{
+		System.out.println(RenderUtil.getOpenGLVersion());
+		RenderUtil.initGraphics();
 		isRunning = false;
 		game = new Game();
 	}
@@ -68,8 +70,8 @@ public class MainComponent
 				Time.setDelta(frameTime);
 				
 				// GAME UPDATES
-				Input.update();
 				game.input();
+				Input.update();
 				game.update();
 				
 				// COUNTS FPS
@@ -103,6 +105,7 @@ public class MainComponent
 	{
 		game.render();
 		Window.render();
+		RenderUtil.clearScreen();
 	}
 	
 	private void cleanup()
