@@ -26,6 +26,7 @@ public class Transform
 		parentMatrix = new Matrix4f().initIdentity();
 	}
 	
+	// METHODS
 	public void update()
 	{
 		if(oldPosition != null)
@@ -45,7 +46,7 @@ public class Transform
 	public void rotate(Vector3f axis, float angle)
 	{
 		rotation = new Quaternion(axis, angle).mult(rotation).normalize();
-	}
+	}	
 	
 	public boolean hasChanged()
 	{
@@ -60,6 +61,17 @@ public class Transform
 			return true;
 		
 		return false;
+	}
+	
+	public void lookAt(Vector3f point, Vector3f up)
+	{
+		rotation = getLookAtDirection(point, up);
+	}
+
+	// GETTERS
+	public Quaternion getLookAtDirection(Vector3f point, Vector3f up)
+	{
+		return new Quaternion(new Matrix4f().initRotation(point.sub(position).normalize(), up));
 	}
 	
 	public Matrix4f getTransformation()
@@ -103,7 +115,16 @@ public class Transform
 	public Quaternion getRotation() {
 		return rotation;
 	}
+	
+	public Vector3f getScale() {
+		return scale;
+	}
 
+	public Transform getParent() {
+		return parent;
+	}
+	
+	// SETTERS
 	public void setRotation(Quaternion rotation) {
 		this.rotation = rotation;
 	}
@@ -112,16 +133,8 @@ public class Transform
 		this.position = position;
 	}
 
-	public Vector3f getScale() {
-		return scale;
-	}
-
 	public void setScale(Vector3f scale) {
 		this.scale = scale;
-	}
-
-	public Transform getParent() {
-		return parent;
 	}
 
 	public void setParent(Transform parent) {

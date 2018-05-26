@@ -4,22 +4,36 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL32.GL_DEPTH_CLAMP;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.base.components.BaseLight;
 import com.base.components.Camera;
 import com.base.engine.core.GameObject;
+import com.base.engine.core.Transform;
 import com.base.engine.core.Vector3f;
+import com.base.engine.rendering.resourceManagement.MappedValues;
 
-public class RenderingEngine 
+public class RenderingEngine extends MappedValues
 {
 	private Camera mainCamera;
-	private Vector3f ambientLight;
-	// more permanent structures
+
 	private ArrayList<BaseLight> lights;
 	private BaseLight activeLight;
 	
+	private HashMap<String, Integer> samplerMap;
+	private Shader forwardAmbient;
+	
 	public RenderingEngine()
 	{	
+		super();
+		lights = new ArrayList<BaseLight>();
+		samplerMap = new HashMap<String, Integer>();
+		
+		samplerMap.put("diffuse", 0);
+		addVector("ambient", new Vector3f(.1f, .1f, .1f));
+		
+		forwardAmbient = new Shader("forward-ambient");
+		
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		
 		glFrontFace(GL_CW);
@@ -30,26 +44,17 @@ public class RenderingEngine
 		
 		glEnable(GL_DEPTH_CLAMP);
 		glEnable(GL_TEXTURE_2D);
-		
-		//mainCamera = new Camera((float)Math.toRadians(70), (float)Window.getWidth()/(float)Window.getHeight(), 0.1f, 1000);
-		ambientLight = new Vector3f(0.1f, 0.1f, 0.1f);
-		lights = new ArrayList<BaseLight>();
 	}
 	
-	public Vector3f getAmbientLight()
+	public void updateUniformStruct(Transform transform, Material mat, Shader shader, String uniformName, String uniformType)
 	{
-		return ambientLight;
+		throw new IllegalArgumentException(uniformType + " is not supported type in Rendering Engine");
 	}
-	
 	public void render(GameObject gameObject)
 	{
-		clearScreen();
-		lights.clear();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-		gameObject.addToRenderingEngine(this);
-		Shader fwdAmbient = ForwardAmbient.getInstance();
-		
-		gameObject.render(fwdAmbient, this);
+		gameObject.renderAll(forwardAmbient, this);
 		
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_ONE, GL_ONE);
@@ -60,36 +65,13 @@ public class RenderingEngine
 		{
 			activeLight = light;
 			//TODO : replace active light
-			gameObject.render(light.getShader(), this);
+			gameObject.renderAll(light.getShader(), this);
 		}
 		
 		
 		glDepthFunc(GL_LESS);
 		glDepthMask(true);
 		glDisable(GL_BLEND);
-	}
-	
-	private static void clearScreen()
-	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
-	
-	private static void setTextures(boolean enabled)
-	{
-		if(enabled)
-			glEnable(GL_TEXTURE_2D);
-		else
-			glDisable(GL_TEXTURE_2D);
-	}
-	
-	private static void unbindTextures()
-	{
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
-	
-	private static void setClearColor(Vector3f color)
-	{
-		glClearColor(color.getX(), color.getY(), color.getZ(), 1.0f);
 	}
 	
 	public static String getOpenGLVersion()
@@ -105,6 +87,10 @@ public class RenderingEngine
 	public BaseLight getActiveLight()
 	{
 		return activeLight;
+	}
+	
+	public int getSamplerSlot(String samplerName) {
+		return samplerMap.get(samplerName);
 	}
 
 	public Camera getMainCamera() {

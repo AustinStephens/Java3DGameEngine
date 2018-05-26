@@ -20,6 +20,7 @@ public class Vector3f {
 		z = 0;
 	}
 	
+	// METHODS
 	public float length()
 	{
 		return (float)Math.sqrt((x * x) + (y * y) + (z * z));
@@ -122,11 +123,17 @@ public class Vector3f {
 		return new Vector3f(Math.abs(x), Math.abs(y), Math.abs(z));
 	}
 	
+	public boolean equals(Vector3f other)
+	{
+		return x == other.getX() && y == other.getY() && z == other.getZ();
+	}
+	
 	public String toString()
 	{
 		return "(" + x + "," + y + "," + z + ")";
 	}
 	
+	// SWIZZLES
 	public Vector2f getXY() { return new Vector2f(x,y); }
 	public Vector2f getYZ() { return new Vector2f(y,z); }
 	public Vector2f getXZ() { return new Vector2f(x,z); }
@@ -134,38 +141,34 @@ public class Vector3f {
 	public Vector2f getZY() { return new Vector2f(z,y); }
 	public Vector2f getZX() { return new Vector2f(z,x); }
 	
+	// GETTERS
+	public float getX() {
+		return x;
+	}
+	
+	public float getY() {
+		return y;
+	}
+	
+	public float getZ() {
+		return z;
+	}
+	
+	// SETTERS
 	public Vector3f set(float x, float y, float z)
 		{ this.x = x; this.y = y; this.z = z; return this; }
 	public Vector3f set(Vector3f r)
 		{ set(r.getX(), r.getY(), r.getZ()); return this; }
 
-	public float getX() {
-		return x;
-	}
-
 	public void setX(float x) {
 		this.x = x;
-	}
-
-	public float getY() {
-		return y;
 	}
 
 	public void setY(float y) {
 		this.y = y;
 	}
 
-	public float getZ() {
-		return z;
-	}
-
 	public void setZ(float z) {
 		this.z = z;
 	}
-	
-	public boolean equals(Vector3f other)
-	{
-		return x == other.getX() && y == other.getY() && z == other.getZ();
-	}
-
 }

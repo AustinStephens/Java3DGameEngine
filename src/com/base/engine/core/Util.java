@@ -1,6 +1,7 @@
 package com.base.engine.core;
 
 import java.nio.FloatBuffer;
+import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 
@@ -10,6 +11,7 @@ import com.base.engine.rendering.Vertex;
 
 public class Util {
 	
+	// BUFFER METHODS
 	public static FloatBuffer createFloatBuffer(int size)
 	{
 		return BufferUtils.createFloatBuffer(size);
@@ -18,6 +20,11 @@ public class Util {
 	public static IntBuffer createIntBuffer(int size)
 	{
 		return BufferUtils.createIntBuffer(size);
+	}
+	
+	public static ByteBuffer createByteBuffer(int size)
+	{
+		return BufferUtils.createByteBuffer(size);
 	}
 	
 	public static IntBuffer createFlippedBuffer(int... values)
@@ -44,6 +51,9 @@ public class Util {
 			buffer.put(vertices[i].getNormal().getX());
 			buffer.put(vertices[i].getNormal().getY());
 			buffer.put(vertices[i].getNormal().getZ());
+			buffer.put(vertices[i].getTangent().getX());
+			buffer.put(vertices[i].getTangent().getY());
+			buffer.put(vertices[i].getTangent().getZ());
 		}
 		
 		buffer.flip();
@@ -66,6 +76,7 @@ public class Util {
 		return buffer;
 	}
 	
+	// OTHER METHODS
 	public static String[] removeEmptyStrings(String[] data)
 	{
 		ArrayList<String> result = new ArrayList<String>();

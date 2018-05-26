@@ -16,6 +16,7 @@ public class MeshRenderer extends GameComponent
 		material = ma;
 	}
 	
+	// METHODS
 	@Override
 	public void render(Shader shader, RenderingEngine renderingEngine)
 	{	

@@ -127,6 +127,7 @@ public class OBJModel
 				result.getTexCoords().add(currentText);
 				if(hasNormals)
 					result.getNormals().add(currentNormal);
+				result.getTangents().add(new Vector3f(0,0,0));
 			}
 			
 			Integer normalModelIndex = normalIndexMap.get(currentIndex.vertexIndex);
@@ -139,6 +140,7 @@ public class OBJModel
 				normalModel.getPositions().add(currentPosition);
 				normalModel.getTexCoords().add(currentText);
 				normalModel.getNormals().add(currentNormal);
+				normalModel.getTangents().add(new Vector3f(0,0,0));
 			}
 			
 			result.getIndices().add(modelVertIndex);
@@ -151,10 +153,12 @@ public class OBJModel
 			normalModel.calcNormals();
 			
 			for(int i = 0; i < result.getPositions().size(); ++i)
-			{
 				result.getNormals().add(normalModel.getNormals().get(indexMap.get(i)));
-			}
 		}
+		normalModel.calcTangents();
+		
+		for(int i = 0; i < result.getPositions().size(); i++)
+			result.getTangents().add(normalModel.getTangents().get(indexMap.get(i)));
 		
 		return result;
 	}

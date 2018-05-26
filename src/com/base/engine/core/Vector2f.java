@@ -17,6 +17,7 @@ public class Vector2f {
 		y = 0;
 	}
 	
+	// METHODS
 	public float length()
 	{
 		return (float)Math.sqrt((x * x) + (y * y));
@@ -98,34 +99,38 @@ public class Vector2f {
 		return new Vector2f(Math.abs(x), Math.abs(y));
 	}
 	
+	public boolean equals(Vector2f other)
+	{
+		return x == other.getX() && y == other.getY();
+	}
+	
 	public String toString()
 	{
 		return "(" + x + "," + y + ")";
 	}
 	
+	// GETTERS
+	public float getX() {
+		return x;
+	}
+	
+	public float getY() {
+		return y;
+	}
+	
+	// SETTERS
 	public Vector2f set(float x, float y)
 		{ this.x = x; this.y = y; return this; }
 	public Vector2f set(Vector2f r)
 		{ set(r.getX(), r.getY()); return this; } 
 
-	public float getX() {
-		return x;
-	}
-
 	public void setX(float x) {
 		this.x = x;
-	}
-
-	public float getY() {
-		return y;
 	}
 
 	public void setY(float y) {
 		this.y = y;
 	}
 	
-	public boolean equals(Vector2f other)
-	{
-		return x == other.getX() && y == other.getY();
-	}
+	
 }

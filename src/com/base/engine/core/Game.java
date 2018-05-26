@@ -6,15 +6,17 @@ public abstract class Game
 {
 	private GameObject root;
 	
+	// METHODS
+	
 	public void init() {}
 	
 	public void input(float delta) 
 	{
-		getRootObject().input(delta);
+		getRootObject().inputAll(delta);
 	}
 	public void update(float delta) 
 	{
-		getRootObject().update(delta);
+		getRootObject().updateAll(delta);
 	}
 	
 	public void render(RenderingEngine renderingEngine)
@@ -27,11 +29,18 @@ public abstract class Game
 		getRootObject().addChild(obj);
 	}
 	
+	// GETTERS
 	private GameObject getRootObject()
 	{
 		if(root == null)
 			root = new GameObject();
 		return root;
+	}
+	
+	// SETTERS
+	public void setEngine(CoreEngine engine) 
+	{
+		getRootObject().setEngine(engine);
 	}
 	
 }

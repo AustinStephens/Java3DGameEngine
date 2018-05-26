@@ -19,9 +19,10 @@ public class CoreEngine
 		this.width = width;
 		this.height = height;
 		this.frameTime = 1.0 / frameRate;
-		
+		game.setEngine(this);
 	}
 	
+	// METHODS
 	public void createWindow(String title)
 	{
 		Window.createWindow(width, height, title);
@@ -113,5 +114,10 @@ public class CoreEngine
 	private void cleanup()
 	{
 		Window.dispose();
+	}
+	
+	public RenderingEngine getRenderingEngine()
+	{
+		return renderingEngine;
 	}
 }

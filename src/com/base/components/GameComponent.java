@@ -1,5 +1,6 @@
 package com.base.components;
 
+import com.base.engine.core.CoreEngine;
 import com.base.engine.core.GameObject;
 import com.base.engine.core.Transform;
 import com.base.engine.rendering.RenderingEngine;
@@ -9,20 +10,22 @@ public abstract class GameComponent
 {
 	private GameObject parent;
 	
+	// METHODS
 	public void input(float delta) {}
 	public void update(float delta) {}
 	
 	public void render(Shader shader, RenderingEngine renderingEngine) {}
+	public void addToEngine(CoreEngine engine) {}
 	
-	public void setParent(GameObject p)
-	{
-		parent = p;
-	}
-	
+	// GETTERS
 	public Transform getTransform()
 	{
 		return parent.getTransform();
 	}
 	
-	public void addToRenderingEngine(RenderingEngine renderingEngine) {}
+	// SETTERS
+	public void setParent(GameObject p)
+	{
+		parent = p;
+	}
 }

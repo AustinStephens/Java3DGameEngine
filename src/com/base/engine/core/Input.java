@@ -16,6 +16,8 @@ public class Input {
 	private static ArrayList<Integer> currentMouse = new ArrayList<Integer>();
 	private static ArrayList<Integer> prevMouse = new ArrayList<Integer>();
 	
+	
+	// METHODS
 	public static void update()
 	{
 		prevKeys.clear();
@@ -40,7 +42,8 @@ public class Input {
 				currentMouse.add(i);
 		}
 	}
-
+	
+	// GETTERS
 	public static boolean getKey(int keyCode)
 	{
 		return Keyboard.isKeyDown(keyCode);
@@ -76,6 +79,7 @@ public class Input {
 		return new Vector2f(Mouse.getX(), Mouse.getY());
 	}
 	
+	// SETTERS
 	public static void setMousePosition(Vector2f pos)
 	{
 		Mouse.setCursorPosition((int)pos.getX(), (int)pos.getY());

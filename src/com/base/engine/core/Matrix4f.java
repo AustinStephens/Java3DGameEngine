@@ -9,10 +9,7 @@ public class Matrix4f {
 		m = new float[4][4];
 	}
 	
-	public float[][] getM() {
-		return m;
-	}
-	
+	// INITS
 	public Matrix4f initIdentity()
 	{
 		for(int i = 0; i < 4; ++i)
@@ -130,6 +127,7 @@ public class Matrix4f {
 		return this;
 	}
 	
+	// METHODS
 	public Vector3f transform(Vector3f r)
 	{
 		return new Vector3f(m[0][0] * r.getX() + m[0][1] * r.getY() + m[0][2] * r.getZ() + m[0][3],
@@ -153,18 +151,21 @@ public class Matrix4f {
 		return res;
 	}
 
-	public void setM(float[][] m) {
-		this.m = m;
-	}
-	
-	public float get(int x, int y)
-	{
+	// GETTERS
+	public float get(int x, int y) {
 		return m[x][y];
 	}
 	
-	public void set(int x, int y, float val)
-	{
+	public float[][] getM() {
+		return m;
+	}
+	
+	// SETTERS
+	public void set(int x, int y, float val) {
 		m[x][y] = val;
 	}
-
+	
+	public void setM(float[][] m) {
+		this.m = m;
+	}
 }
