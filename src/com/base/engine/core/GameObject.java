@@ -22,11 +22,13 @@ public class GameObject
 	}
 	
 	// METHODS
-	public void addChild(GameObject child)
+	public GameObject addChild(GameObject child)
 	{
 		children.add(child);
 		child.setEngine(engine);
 		child.getTransform().setParent(transform);
+		
+		return this;
 	}
 	
 	public GameObject addComponent(GameComponent comp)

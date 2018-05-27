@@ -8,9 +8,9 @@ public class Camera extends GameComponent
 {
 	private Matrix4f projection;
 	
-	public Camera(float fov, float aspect, float zNear, float zFar)
+	public Camera(Matrix4f projection)
 	{
-		projection = new Matrix4f().initProjection(fov, aspect, zNear, zFar);
+		this.projection = projection;
 	}
 	
 	// METHODS

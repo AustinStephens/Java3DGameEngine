@@ -50,7 +50,7 @@ public class CoreEngine
 		
 		// FRAME / DELTA TIME WORK
 		int frames = 0;
-		long frameCounter = 0;
+		double frameCounter = 0;
 		
 		game.init();
 		

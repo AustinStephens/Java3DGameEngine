@@ -1,7 +1,6 @@
 package com.base.engine.rendering;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL32.GL_DEPTH_CLAMP;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +29,8 @@ public class RenderingEngine extends MappedValues
 		samplerMap = new HashMap<String, Integer>();
 		
 		samplerMap.put("diffuse", 0);
+		samplerMap.put("normalMap", 1);
+		samplerMap.put("dispMap", 2);
 		addVector("ambient", new Vector3f(.1f, .1f, .1f));
 		
 		forwardAmbient = new Shader("forward-ambient");
@@ -42,7 +43,7 @@ public class RenderingEngine extends MappedValues
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_DEPTH_TEST);
 		
-		glEnable(GL_DEPTH_CLAMP);
+		//glEnable(GL_DEPTH_CLAMP);
 		glEnable(GL_TEXTURE_2D);
 	}
 	
@@ -52,6 +53,7 @@ public class RenderingEngine extends MappedValues
 	}
 	public void render(GameObject gameObject)
 	{
+		if (getMainCamera() == null) System.err.println("Error! Main camera not found. This is very very big bug, and game will crash.");
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		gameObject.renderAll(forwardAmbient, this);
